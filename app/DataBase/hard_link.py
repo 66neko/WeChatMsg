@@ -1,5 +1,5 @@
 import binascii
-import os.path
+import os.path,sys
 import sqlite3
 import threading
 import traceback
@@ -217,6 +217,7 @@ class HardLink:
             pass
         else:
             result = self.get_image_by_md5(binascii.unhexlify(md5))
+            print("哈哈 = ", result)
             if result:
                 dir1 = result[3]
                 dir2 = result[4]
@@ -233,6 +234,7 @@ class HardLink:
             result = self.get_image_thumb(content, bytesExtra)
         else:
             result = self.get_image_original(content, bytesExtra)
+            print("#####1 = " ,result)
             if not (result and os.path.exists(os.path.join(up_dir, result))):
                 result = self.get_image_thumb(content, bytesExtra)
         return result

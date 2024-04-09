@@ -45,6 +45,8 @@ class HtmlExporter(ExporterBase):
         )
 
     def image(self, doc, message):
+        print("#############", file=sys.stderr)
+        #print(message, file=sys.stderr)
         base_path = os.path.join(OUTPUT_DIR, '聊天记录', self.contact.remark, 'image')
         type_ = message[2]
         str_content = message[7]
@@ -57,7 +59,11 @@ class HtmlExporter(ExporterBase):
         display_name = self.get_display_name(is_send, message)
         str_content = escape_js_and_html(str_content)
         image_path = hard_link_db.get_image(str_content, BytesExtra, up_dir=Me().wx_dir, thumb=False)
+        print(image_path, file=sys.stderr)
+        print(base_path, file=sys.stderr)
         image_path = get_image_path(image_path, base_path=base_path)
+        print("#############222", file=sys.stderr)
+        print(image_path, file=sys.stderr)
         doc.write(
             f'''{{ type:{type_}, text: '{image_path}',is_send:{is_send},avatar_path:'{avatar}',timestamp:{timestamp},is_chatroom:{is_chatroom},displayname:'{display_name}'}},'''
         )
